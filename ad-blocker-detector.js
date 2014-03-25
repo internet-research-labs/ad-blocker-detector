@@ -18,22 +18,16 @@ function AdBlockerDetector () {
     var uniqueId = 'AdBlockDetector-' + Math.floor(Math.random() * 1000);
     var adDiv = document.createElement('div');
     adDiv.className = 'pub_300x250 pub_300x250m pub_728x90 text-ad textAd text_ad text_ads text-ads text-ad-links';
-    adDiv.style.position  = 'fixed';
-    adDiv.style.color     = 'transparent';
-    adDiv.style.left      = '-1000px';
-    adDiv.style.right     = '-1000px';
+    adDiv.style.position  = 'absolute';
+    adDiv.style.height    = '1px';
     adDiv.id = uniqueId;
-    adDiv.innerHTML = 'x_x';
+    adDiv.innerHTML = '';
     document.body.appendChild(adDiv);
     var result = document.getElementById(uniqueId);
     setTimeout(function () {
       self.results.classNameTest = isBlocked(result);
       checkResults();
     }, 1000);
-  };
-  // Test whether we are blocking content from a shady URL
-  self.tests.evilUrlTest = function () {
-    self.results.evilUrlTest = false;
   };
 
   /**
@@ -77,10 +71,11 @@ function AdBlockerDetector () {
       var testResult = self.results[key];
       if (testResult === true) {
         self.if_detected[0].call(undefined, key);
-        return;
+        console.log(key, self.results[key]);
       }
       else if (testResult === false) {
         any_failed = true;
+        console.log(key, self.results[key]);
       }
       else {
         all_defined = false;
