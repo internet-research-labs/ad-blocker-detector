@@ -1,5 +1,10 @@
 
-
+/**
+ * Adblocker Detector
+ *
+ * An object that creates and triggers events depending on what types of ads
+ * are being blocked/unavailable.
+ */
 function AdBlockerDetector () {
   var self = this;
 
@@ -61,7 +66,7 @@ function AdBlockerDetector () {
     return false;
   }
   /**
-   *
+   * Check Whether Tets have Results
    *
    */
   function checkResults () {
@@ -70,7 +75,6 @@ function AdBlockerDetector () {
     for (key in self.results) {
       var testResult = self.results[key];
       if (testResult === true) {
-        self.if_detected[0].call(undefined, key);
         console.log(key, self.results[key]);
       }
       else if (testResult === false) {
@@ -82,9 +86,11 @@ function AdBlockerDetector () {
       }
     }
 
-    if (all_defined && any_failed) {
-      self.if_undetected[0].call(undefined, '', {});
-    }
+    // If any failed, let everyone know that it failed
+    if (!any_failed)
+      self.yes();
+    else if (all_defined)
+      self.no();
   }
 }
 
@@ -101,6 +107,7 @@ AdBlockerDetector.prototype.ready = function (callback) {
   }
   else
     throw new Error('callback is not a function');
+  return this;
 };
 
 /**
@@ -111,8 +118,14 @@ AdBlockerDetector.prototype.ready = function (callback) {
 AdBlockerDetector.prototype.yes = function (callback) {
   if (typeof callback === 'function')
     this.if_detected.push(callback);
+  else if (callback === undefined) {
+    for (var i=0; i < this.if_ready.length; i++) {
+      this.if_detected[i].call(undefined);
+    }
+  }
   else
     throw new Error('callback is not a function');
+  return this;
 };
 
 /**
@@ -121,6 +134,12 @@ AdBlockerDetector.prototype.yes = function (callback) {
 AdBlockerDetector.prototype.no = function (callback) {
   if (typeof callback === 'function')
     this.if_undetected.push(callback);
+  else if (callback === undefined) {
+    for (var i=0; i < this.if_ready.length; i++) {
+      this.if_undetected[i].call(undefined);
+    }
+  }
   else
     throw new Error('callback is not a function');
+  return this;
 };
