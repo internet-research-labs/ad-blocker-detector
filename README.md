@@ -21,7 +21,6 @@ adBlockerDetector.ready(function () {
 
 // Triggers when an ad blocker is detected
 adBlockerDetector.yes(function (which_test, report) {
-  var div = document.getElementById('adBlockerStatus');
   console.log('AdBlocker Detected');
 });
 
