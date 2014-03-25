@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+
+    <script src="../../ad-blocker-detector.js"></script>
+    <script>
+      var adBlockerDetector = new AdBlockerDetector();
+
+      adBlockerDetector.yes(function () {
+        alert('yes');
+      });
+
+      adBlockerDetector.no(function () {
+        alert('no');
+      });
+    </script>
+  </body>
+</html>
+

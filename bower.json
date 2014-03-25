@@ -1,0 +1,24 @@
+{
+  "name": "ad-blocker-detector",
+  "version": "0.0.0",
+  "authors": [
+    "Matt Derasoirs <matt@planwork.us>"
+  ],
+  "description": "Event-driven Ad-Blocker Detector with Event Handler.",
+  "main": "ad-blocker-detector.js",
+  "keywords": [
+    "advertisement",
+    "ad",
+    "blocker",
+    "detector"
+  ],
+  "license": "UNLICENSE",
+  "homepage": "http://razorbla.de",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
