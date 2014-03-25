@@ -4,16 +4,25 @@
   </head>
   <body>
 
+    <div id="adBlockerStatus">Unready</div>
+
     <script src="../../ad-blocker-detector.js"></script>
     <script>
       var adBlockerDetector = new AdBlockerDetector();
 
-      adBlockerDetector.yes(function () {
-        alert('yes');
+      adBlockerDetector.ready(function () {
+        var div = document.getElementById('adBlockerStatus');
+        div.innerHTML = 'Checking';
       });
 
-      adBlockerDetector.no(function () {
-        alert('no');
+      adBlockerDetector.yes(function (which_test, report) {
+        var div = document.getElementById('adBlockerStatus');
+        div.innerHTML = 'Detected';
+      });
+
+      adBlockerDetector.no(function (which_test, report) {
+        var div = document.getElementById('adBlockerStatus');
+        div.innerHTML = 'Not Detected';
       });
     </script>
   </body>
